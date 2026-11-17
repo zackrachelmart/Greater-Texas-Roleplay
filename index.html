@@ -3,22 +3,22 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="LCRPQQ / WebERLC — more than a server. Your story. Your city." />
+    <meta name="description" content="LCRPQQ / WebERLC — random joke generator powered by an external API." />
     <meta name="theme-color" content="#0a0f19" />
-    <title>LCRPQQ | WebERLC</title>
+    <title>LCRPQQ | Random Joke Generator</title>
     <style>
       :root {
         --bg: #070d18;
         --bg-2: #0d1729;
-        --bg-3: #0f1c30;
-        --panel: rgba(14, 21, 34, 0.78);
-        --panel-strong: rgba(19, 27, 41, 0.9);
+        --panel: rgba(15, 21, 34, 0.86);
+        --panel-strong: rgba(19, 27, 41, 0.92);
         --line: rgba(255, 255, 255, 0.08);
         --text: #edf3ff;
         --muted: #a8b6cc;
         --blue: #8ec6ff;
         --white: #f3f5fb;
         --shadow: 0 25px 70px rgba(0, 0, 0, 0.45);
+        --button: linear-gradient(135deg, #84c6ff, #9d77ff);
       }
 
       * { box-sizing: border-box; }
@@ -26,571 +26,209 @@
       body {
         margin: 0;
         font-family: Inter, "Segoe UI", Arial, sans-serif;
-        background: var(--bg);
+        background:
+          radial-gradient(circle at 70% 20%, rgba(75, 111, 160, 0.18), transparent 28%),
+          linear-gradient(180deg, #070d18 0%, #0d1422 100%);
         color: var(--text);
-        line-height: 1.5;
       }
+
       a { text-decoration: none; color: inherit; }
-      img { max-width: 100%; display: block; }
+      button { font: inherit; }
 
       .container {
-        width: min(1440px, calc(100% - 48px));
+        width: min(1200px, calc(100% - 32px));
         margin: 0 auto;
       }
 
       .hero {
-        position: relative;
         min-height: 100vh;
+        display: grid;
+        place-items: center;
+        position: relative;
         overflow: hidden;
-        background:
-          radial-gradient(circle at 72% 40%, rgba(24, 52, 84, 0.42), transparent 20%),
-          radial-gradient(circle at 82% 60%, rgba(72, 95, 161, 0.14), transparent 18%),
-          linear-gradient(90deg, rgba(6, 12, 22, 0.96), rgba(6, 12, 22, 0.88) 37%, rgba(7, 12, 20, 0.20) 100%),
-          linear-gradient(180deg, #07111d 0%, #0a101a 100%);
       }
 
       .hero::before {
         content: "";
         position: absolute;
         inset: 0;
-        background: linear-gradient(90deg, rgba(1,5,10,0.3), rgba(1,5,10,0.1));
-        z-index: 0;
+        background:
+          radial-gradient(circle at 50% 30%, rgba(64, 101, 161, 0.18), transparent 35%),
+          linear-gradient(90deg, rgba(5, 9, 18, 0.9), rgba(5, 9, 18, 0.65));
       }
 
-      .glow {
-        position: absolute;
-        inset: 0;
-        pointer-events: none;
-        z-index: 0;
-      }
-
-      .glow::before,
-      .glow::after {
-        content: "";
-        position: absolute;
-        border-radius: 50%;
-        filter: blur(12px);
-        opacity: 0.7;
-      }
-
-      .glow::before {
-        width: 620px;
-        height: 620px;
-        right: 10%;
-        top: 10%;
-        background: radial-gradient(circle, rgba(104, 153, 255, 0.16), transparent 65%);
-      }
-
-      .glow::after {
-        width: 420px;
-        height: 420px;
-        right: 6%;
-        bottom: -10%;
-        background: radial-gradient(circle, rgba(122, 85, 255, 0.14), transparent 60%);
-      }
-
-      .stars {
-        position: absolute;
-        inset: 0;
-        z-index: 0;
-        pointer-events: none;
-      }
-
-      .stars span {
-        position: absolute;
-        width: 5px;
-        height: 5px;
-        border-radius: 50%;
-        background: rgba(255,255,255,.8);
-        box-shadow: 0 0 10px rgba(255,255,255,0.8);
-      }
-
-      .topbar {
+      .content {
         position: relative;
-        z-index: 2;
+        z-index: 1;
+        width: min(960px, 100%);
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 26px;
+        box-shadow: var(--shadow);
+        padding: 38px 28px;
       }
 
-      .nav {
-        height: 88px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 20px;
-      }
-
-      .brand {
-        display: inline-flex;
-        align-items: center;
-        gap: 12px;
-        font-size: 0.85rem;
-        letter-spacing: 0.15em;
-        text-transform: uppercase;
-        color: var(--white);
-        opacity: 0.92;
-        font-weight: 700;
-      }
-
-      .brand-mark {
-        width: 12px;
-        height: 12px;
-        border-radius: 50%;
-        background: var(--blue);
-        box-shadow: 0 0 18px rgba(126, 187, 255, 0.9);
-      }
-
-      .nav-right {
-        display: flex;
-        align-items: center;
-        gap: 18px;
-        color: var(--muted);
-        font-size: 0.78rem;
-        letter-spacing: 0.16em;
-        text-transform: uppercase;
-        font-weight: 700;
-      }
-
-      .nav-right .dot {
-        width: 6px;
-        height: 6px;
-        border-radius: 50%;
-        background: var(--blue);
+      .eyebrow {
         display: inline-block;
-        box-shadow: 0 0 10px rgba(111, 170, 255, 0.9);
-      }
-
-      .hero-inner {
-        position: relative;
-        z-index: 2;
-        display: grid;
-        grid-template-columns: 1.2fr 0.8fr;
-        align-items: center;
-        min-height: calc(100vh - 88px);
-        gap: 26px;
-      }
-
-      .left {
-        padding: 18px 0 42px;
-      }
-
-      .title-stack {
-        margin-top: 20px;
+        margin-bottom: 16px;
+        font-size: 0.72rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--blue);
+        font-weight: 800;
       }
 
       h1 {
         margin: 0;
-        font-size: clamp(4.5rem, 9vw, 12rem);
-        line-height: 0.82;
-        letter-spacing: -0.085em;
-        font-weight: 900;
-        text-transform: uppercase;
-      }
-
-      h1 .white {
-        display: block;
-        color: var(--white);
-      }
-
-      h1 .blue {
-        display: block;
-        color: var(--blue);
+        font-size: clamp(2.8rem, 5vw, 5rem);
+        line-height: 0.94;
+        letter-spacing: -0.07em;
       }
 
       .subtitle {
-        margin-top: 28px;
-        max-width: 840px;
-        font-size: clamp(1.07rem, 1.6vw, 1.75rem);
-        line-height: 1.7;
-        color: rgba(227, 235, 247, 0.84);
+        margin-top: 18px;
+        color: var(--muted);
+        font-size: 1.04rem;
+        line-height: 1.8;
+        max-width: 680px;
       }
 
-      .cta-row {
-        margin-top: 36px;
+      .joke-box {
+        margin-top: 28px;
+        background: rgba(255,255,255,0.02);
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        padding: 22px 20px;
+        min-height: 150px;
         display: flex;
         align-items: center;
-        gap: 20px;
+        justify-content: center;
+      }
+
+      #jokeText {
+        font-size: clamp(1.1rem, 1.8vw, 1.6rem);
+        line-height: 1.7;
+        color: var(--text);
+        text-align: center;
+        width: 100%;
+      }
+
+      .actions {
+        margin-top: 26px;
+        display: flex;
+        gap: 16px;
+        justify-content: center;
         flex-wrap: wrap;
       }
 
       .btn {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        gap: 18px;
-        min-height: 62px;
-        padding: 0 28px;
-        border-radius: 14px;
-        border: 1px solid rgba(255,255,255,0.25);
-        background: linear-gradient(135deg, rgba(117, 181, 255, 0.9), rgba(160, 126, 255, 0.85));
-        color: #08111d;
+        border: 1px solid rgba(255,255,255,0.2);
+        background: var(--button);
+        color: #0a1220;
         font-weight: 900;
         letter-spacing: 0.08em;
         text-transform: uppercase;
-        box-shadow: 0 16px 38px rgba(107, 152, 255, 0.26);
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        padding: 16px 24px;
+        border-radius: 12px;
+        cursor: pointer;
+        box-shadow: 0 16px 38px rgba(111, 157, 255, 0.2);
+        transition: transform 0.2s ease;
       }
 
       .btn:hover {
         transform: translateY(-2px);
-        box-shadow: 0 18px 42px rgba(107, 152, 255, 0.3);
       }
 
       .btn.secondary {
         background: rgba(255,255,255,0.02);
         color: var(--white);
-        box-shadow: none;
         border-color: rgba(255,255,255,0.12);
+        box-shadow: none;
       }
 
-      .btn .arrow {
-        font-size: 1.5rem;
-        line-height: 1;
-      }
-
-      .right {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        position: relative;
-      }
-
-      .logo-badge {
-        position: relative;
-        width: min(31vw, 380px);
-        aspect-ratio: 1;
-        display: grid;
-        place-items: center;
-        border-radius: 50%;
-        background: radial-gradient(circle at 50% 32%, rgba(32,52,80,0.75), rgba(11,18,29,0.95) 62%, rgba(4,8,15,1) 100%);
-        border: 1px solid rgba(255,255,255,0.13);
-        box-shadow: 0 0 60px rgba(45, 112, 255, 0.13), inset 0 0 38px rgba(255,255,255,0.02);
-      }
-
-      .bear-logo {
-        width: 95%;
-        height: 95%;
-        display: block;
-        filter: drop-shadow(0 0 12px rgba(255,255,255,0.12));
-      }
-
-      .logo-badge .tag {
-        position: absolute;
-        right: 10%;
-        bottom: 9%;
-        font-size: 0.7rem;
-        font-weight: 800;
-        letter-spacing: 0.18em;
+      .status {
+        margin-top: 18px;
+        min-height: 22px;
+        font-size: 0.85rem;
+        letter-spacing: 0.08em;
         text-transform: uppercase;
-        color: var(--white);
-        opacity: 0.8;
-      }
-
-      .shadow-pulse {
-        position: absolute;
-        width: 74%;
-        height: 60%;
-        border-radius: 50%;
-        background: radial-gradient(circle, rgba(137, 200, 255, 0.12), transparent 70%);
-        filter: blur(25px);
-        bottom: 1%;
-        right: 5%;
-      }
-
-      .section {
-        padding: 100px 0;
-      }
-
-      .kicker {
-        font-size: 0.78rem;
-        letter-spacing: 0.18em;
-        text-transform: uppercase;
-        color: var(--blue);
-        font-weight: 800;
-      }
-
-      .section h2 {
-        margin: 14px 0 18px;
-        font-size: clamp(2.4rem, 5vw, 4.5rem);
-        line-height: 0.96;
-        letter-spacing: -0.07em;
-      }
-
-      .lead {
-        max-width: 780px;
         color: var(--muted);
-        font-size: 1.1rem;
-        line-height: 1.8;
-      }
-
-      .cards {
-        margin-top: 42px;
-        display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 22px;
-      }
-
-      .card {
-        background: linear-gradient(180deg, rgba(18,26,40,0.94), rgba(10,15,22,0.92));
-        border: 1px solid var(--line);
-        border-radius: 18px;
-        padding: 26px 22px;
-        box-shadow: var(--shadow);
-      }
-
-      .card-index {
-        font-size: 0.72rem;
-        font-weight: 800;
-        letter-spacing: 0.16em;
-        text-transform: uppercase;
-        color: var(--blue);
-      }
-
-      .card h3 {
-        margin: 20px 0 12px;
-        font-size: 1.6rem;
-        letter-spacing: -0.04em;
-      }
-
-      .card p {
-        margin: 0;
-        color: var(--muted);
-        line-height: 1.7;
-      }
-
-      .cta {
-        padding: 80px 0 116px;
-      }
-
-      .cta-box {
-        background: linear-gradient(90deg, rgba(17,28,42,0.9), rgba(14,20,32,0.9));
-        border: 1px solid var(--line);
-        border-radius: 22px;
-        padding: 34px 28px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 26px;
-        box-shadow: var(--shadow);
-      }
-
-      .cta-box h3 {
-        margin: 0 0 8px;
-        font-size: clamp(2rem, 4vw, 3rem);
-        letter-spacing: -0.06em;
-      }
-
-      .cta-box p {
-        margin: 0;
-        color: var(--muted);
-      }
-
-      footer {
-        padding: 0 0 34px;
-        color: var(--muted);
-      }
-
-      .footer-inner {
-        border-top: 1px solid var(--line);
-        padding-top: 20px;
-        display: flex;
-        justify-content: space-between;
-        gap: 16px;
-        flex-wrap: wrap;
-      }
-
-      @media (max-width: 980px) {
-        .hero-inner {
-          grid-template-columns: 1fr;
-          padding-top: 10px;
-        }
-
-        .right {
-          order: -1;
-          padding-top: 28px;
-        }
-
-        .logo-badge {
-          width: min(52vw, 300px);
-        }
-
-        .cards {
-          grid-template-columns: 1fr;
-        }
-
-        .cta-box {
-          flex-direction: column;
-          align-items: flex-start;
-        }
+        text-align: center;
       }
 
       @media (max-width: 680px) {
-        .container { width: min(100% - 26px, 1440px); }
-        .nav { height: 70px; }
-        .nav-right {
-          gap: 10px;
-          font-size: 0.6rem;
-          letter-spacing: 0.12em;
+        .content {
+          padding: 28px 18px;
         }
 
-        .subtitle {
-          max-width: 620px;
-        }
-
-        .cta-row {
-          align-items: stretch;
+        .actions {
           flex-direction: column;
-          width: 100%;
         }
 
         .btn {
           width: 100%;
-          justify-content: center;
-        }
-
-        .logo-badge {
-          width: min(62vw, 270px);
         }
       }
     </style>
   </head>
   <body>
-    <header class="hero">
-      <div class="glow"></div>
-      <div class="stars" aria-hidden="true">
-        <span style="left: 5%; top: 12%;"></span>
-        <span style="left: 16%; top: 55%;"></span>
-        <span style="left: 28%; top: 20%;"></span>
-        <span style="left: 42%; top: 41%;"></span>
-        <span style="left: 63%; top: 15%;"></span>
-        <span style="left: 74%; top: 52%;"></span>
-        <span style="left: 88%; top: 22%;"></span>
-        <span style="left: 92%; top: 64%;"></span>
-      </div>
-
-      <div class="topbar container">
-        <div class="nav">
-          <div class="brand">
-            <span class="brand-mark"></span>
-            <span>More Than A Server</span>
-          </div>
-
-          <div class="nav-right">
-            <span class="dot"></span>
-            <span>WebERLC</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="container hero-inner">
-        <div class="left">
-          <div class="title-stack">
-            <h1>
-              <span class="white">Your story.</span>
-              <span class="blue">Your city.</span>
-            </h1>
-          </div>
-
+    <section class="hero">
+      <div class="container">
+        <div class="content">
+          <div class="eyebrow">LCRPQQ / WebERLC</div>
+          <h1>Random Joke Generator</h1>
           <p class="subtitle">
-            Meet the community, find your department, and make every session count.
-            Your next shift in LCRPQQ starts here.
+            A quick laugh between calls. Press the button to fetch a fresh joke from an external joke API.
           </p>
 
-          <div class="cta-row">
-            <a class="btn" href="https://discord.gg/PSQThAyYPN" target="_blank" rel="noreferrer">
-              Join Discord <span class="arrow">↗</span>
-            </a>
+          <div class="joke-box">
+            <div id="jokeText">Loading joke...</div>
+          </div>
+
+          <div class="actions">
+            <button class="btn" id="newJokeBtn">New Joke</button>
             <a class="btn secondary" href="https://discord.gg/PSQThAyYPN" target="_blank" rel="noreferrer">
-              Rejoin Server <span class="arrow">↗</span>
+              Join Discord
             </a>
           </div>
-        </div>
 
-        <div class="right">
-          <div class="logo-badge" aria-label="LCRPQQ badge">
-            <svg class="bear-logo" viewBox="0 0 400 400" role="img" aria-label="LCRPQQ bear logo">
-              <circle cx="200" cy="200" r="185" fill="#02070d"/>
-              <circle cx="200" cy="200" r="168" fill="none" stroke="#f3f5fb" stroke-width="10"/>
-              <path d="M123 104c18-31 44-49 77-56 36-8 76-3 109 23 33 25 47 67 39 106-5 27-23 52-47 70-20 14-44 23-64 34-18 8-46 13-69 7-23-7-41-22-56-45-16-24-20-52-12-77 8-29 18-39 23-62z" fill="#f3f5fb"/>
-              <path d="M149 144c-12-35 3-68 42-78 24-6 47-5 63 12 17 18 29 48 21 76-5 17-14 30-35 38-9 4-18 6-28 8-41 7-63-14-63-56z" fill="#02070d" opacity="0.04"/>
-              <path d="M90 170c-13-12-17-29-17-43 0-51 42-91 102-90 23 1 49 11 67 36 19 27 28 60 22 93-7 36-31 61-60 75-26 12-60 16-87 4-17-7-27-20-27-39 0-13 4-25 10-36z" fill="#f3f5fb"/>
-              <path d="M201 96l37-55 52 24-8 42 22 26-44 7-28 42-20-37-54-4 24-33 19-11z" fill="#f3f5fb"/>
-              <path d="M136 176c-10-16-18-26-32-33-28-14-53-10-66 13-17 29-8 72 22 101 19 18 41 26 60 32 20 7 38 6 52-4-13-30-13-73-36-109z" fill="#f3f5fb"/>
-              <path d="M262 176c10-16 18-26 32-33 28-14 53-10 66 13 17 29 8 72-22 101-19 18-41 26-60 32-20 7-38 6-52-4 13-30 13-73 36-109z" fill="#f3f5fb"/>
-              <path d="M155 255c17-14 42-22 67-22 28 0 53 7 71 22 17 14 28 33 31 58-5 43-36 76-81 86-41 9-82-6-104-40-11-17-15-34-13-50 2-17 15-38 29-54z" fill="#f3f5fb"/>
-              <path d="M169 262c16 12 31 18 45 18 16 0 31-6 46-18l16 18c-13 42-33 62-62 68-28 7-51-7-66-36l21-32z" fill="#02070d"/>
-              <path d="M170 245h74c18 0 35 10 42 25l17 42c8 20-6 41-27 41H138c-21 0-35-21-27-41l16-42c7-15 24-25 43-25z" fill="#f3f5fb"/>
-              <path d="M177 225c17 11 29 17 44 17 18 0 30-6 45-17l-8 27c-16 16-27 22-37 22-12 0-25-7-39-21l-5-28z" fill="#02070d"/>
-              <path d="M178 260h38v12h-38zM187 280h25v11h-25zM194 298h13v9h-13z" fill="#02070d"/>
-              <path d="M160 282l-18 30-24-18 16-27 26 15zM249 282l18 30 24-18-16-27-26 15z" fill="#02070d"/>
-              <path d="M162 287l-8 42 18 14 12-45-22-11zM246 287l8 42-18 14-12-45 22-11z" fill="#02070d"/>
-              <path d="M184 334h32l-5 18h-22l-5-18z" fill="#f3f5fb"/>
-              <path d="M140 256c-11 18-25 26-38 29-16 4-21-7-11-20 10-12 24-16 49-9z" fill="#f3f5fb"/>
-              <path d="M260 256c11 18 25 26 38 29 16 4 21-7 11-20-10-12-24-16-49-9z" fill="#f3f5fb"/>
-              <circle cx="146" cy="182" r="10" fill="#02070d"/>
-              <circle cx="255" cy="182" r="10" fill="#02070d"/>
-              <path d="M60 122c15-29 45-53 80-63 6 15 8 31 4 47-11 42-30 69-59 92-27 21-43 20-52 14-7-5-8-16-1-30 7-17 15-40 28-60z" fill="#f3f5fb"/>
-              <path d="M337 123c-15-29-45-53-80-63-6 15-8 31-4 47 11 42 30 69 59 92 27 21 43 20 52 14 7-5 8-16 1-30-7-17-15-40-28-60z" fill="#f3f5fb"/>
-            </svg>
-            <span class="tag">LCRPQQ</span>
-          </div>
-          <div class="shadow-pulse"></div>
+          <div id="status" class="status">Fetching from API...</div>
         </div>
       </div>
-    </header>
+    </section>
 
-    <main>
-      <section class="section">
-        <div class="container">
-          <div class="kicker">Find your place</div>
-          <h2>One county. Many ways to serve.</h2>
-          <p class="lead">
-            Whether you’re patrolling the roads, defending the city, or building a life in the community,
-            LCRPQQ gives you a place to stand, grow, and make every roleplay session matter.
-          </p>
+    <script>
+      const jokeText = document.getElementById('jokeText');
+      const statusText = document.getElementById('status');
+      const newJokeBtn = document.getElementById('newJokeBtn');
 
-          <div class="cards">
-            <article class="card">
-              <div class="card-index">01 / Public Safety</div>
-              <h3>Law Enforcement</h3>
-              <p>Protect the county, respond to calls, and work as a team under pressure.</p>
-            </article>
+      async function fetchJoke() {
+        statusText.textContent = 'Fetching from API...';
+        jokeText.textContent = 'Loading joke...';
 
-            <article class="card">
-              <div class="card-index">02 / Emergency</div>
-              <h3>Fire &amp; Rescue</h3>
-              <p>Answer the call, support your crew, and respond when the community needs you most.</p>
-            </article>
+        try {
+          const response = await fetch('https://v2.jokeapi.dev/joke/Any?type=single');
 
-            <article class="card">
-              <div class="card-index">03 / Community</div>
-              <h3>Citizen Roleplay</h3>
-              <p>Build your life in the city and create your own story alongside the rest of the county.</p>
-            </article>
-          </div>
-        </div>
-      </section>
+          if (!response.ok) {
+            throw new Error('Request failed');
+          }
 
-      <section class="cta">
-        <div class="container">
-          <div class="cta-box">
-            <div>
-              <div class="kicker">Your next session awaits</div>
-              <h3>Ready to join the county?</h3>
-              <p>Meet the community and start building your story in LCRPQQ.</p>
-            </div>
+          const data = await response.json();
 
-            <a class="btn" href="https://discord.gg/PSQThAyYPN" target="_blank" rel="noreferrer">
-              Join Our Discord <span class="arrow">↗</span>
-            </a>
-          </div>
-        </div>
-      </section>
-    </main>
+          if (data.error) {
+            throw new Error(data.message || 'API error');
+          }
 
-    <footer>
-      <div class="container footer-inner">
-        <span>© 2026 LCRPQQ / WebERLC</span>
-        <span>Roleplay. Respond. Rebuild.</span>
-      </div>
-    </footer>
+          jokeText.textContent = data.joke || `${data.setup} ${data.delivery}`;
+          statusText.textContent = 'Fresh joke loaded';
+        } catch (error) {
+          jokeText.textContent = 'Oops! The joke API is unavailable right now. Try again in a moment.';
+          statusText.textContent = 'API error';
+        }
+      }
+
+      newJokeBtn.addEventListener('click', fetchJoke);
+      fetchJoke();
+    </script>
   </body>
 </html>
