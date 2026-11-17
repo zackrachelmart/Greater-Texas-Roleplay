@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ER:LC | Official Server</title>
+    <meta
+      name="description"
+      content="ER:LC is a high-energy roleplay and emergency response community. Join our server for action, teamwork, and unforgettable moments."
+    />
+    <style>
+      :root {
+        --bg: #0b1020;
+        --bg-soft: #121b2f;
+        --panel: rgba(18, 27, 47, 0.9);
+        --panel-light: #1a2a48;
+        --primary: #ff7b2c;
+        --primary-dark: #d65f12;
+        --secondary: #2dd4bf;
+        --text: #edf3ff;
+        --muted: #aab8d6;
+        --border: rgba(255, 255, 255, 0.08);
+        --shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        background: linear-gradient(180deg, #0a0f1d 0%, #0d1425 100%);
+        color: var(--text);
+        line-height: 1.6;
+      }
+
+      a {
+        text-decoration: none;
+      }
+
+      img {
+        max-width: 100%;
+        display: block;
+      }
+
+      .container {
+        width: min(1180px, calc(100% - 32px));
+        margin: 0 auto;
+      }
+
+      header {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        backdrop-filter: blur(14px);
+        background: rgba(11, 16, 32, 0.72);
+        border-bottom: 1px solid var(--border);
+      }
+
+      .nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        min-height: 76px;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .brand-mark {
+        width: 38px;
+        height: 38px;
+        border-radius: 12px;
+        background: linear-gradient(135deg, var(--primary), #ffaf42);
+        display: grid;
+        place-items: center;
+        color: #1a120d;
+        font-weight: 900;
+      }
+
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 26px;
+        flex-wrap: wrap;
+      }
+
+      .nav-links a {
+        color: var(--muted);
+        font-size: 0.96rem;
+        transition: color 0.2s ease;
+      }
+
+      .nav-links a:hover {
+        color: var(--text);
+      }
+
+      .nav-actions {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 12px;
+        padding: 14px 22px;
+        font-weight: 700;
+        transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+        border: 1px solid transparent;
+        cursor: pointer;
+      }
+
+      .btn:hover {
+        transform: translateY(-1px);
+      }
+
+      .btn-primary {
+        background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+        color: white;
+        box-shadow: 0 12px 24px rgba(255, 123, 44, 0.25);
+      }
+
+      .btn-secondary {
+        background: rgba(255, 255, 255, 0.03);
+        color: var(--text);
+        border-color: var(--border);
+      }
+
+      .hero {
+        position: relative;
+        overflow: hidden;
+        background:
+          linear-gradient(120deg, rgba(12, 18, 32, 0.93), rgba(13, 18, 31, 0.7)),
+          url("https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1600&q=80") center/cover no-repeat;
+        padding: 90px 0 80px;
+      }
+
+      .hero::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(circle at 20% 20%, rgba(45, 212, 191, 0.18), transparent 28%);
+      }
+
+      .hero-inner {
+        position: relative;
+        z-index: 1;
+        display: grid;
+        grid-template-columns: 1.15fr 0.85fr;
+        gap: 34px;
+        align-items: center;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid var(--border);
+        color: var(--text);
+        padding: 8px 12px;
+        border-radius: 999px;
+        font-size: 0.8rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .eyebrow-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--secondary);
+        box-shadow: 0 0 8px rgba(45, 212, 191, 0.9);
+      }
+
+      h1 {
+        margin: 20px 0 18px;
+        font-size: clamp(2.7rem, 6vw, 5rem);
+        line-height: 0.95;
+        letter-spacing: -0.06em;
+      }
+
+      .hero p {
+        color: var(--muted);
+        font-size: 1.08rem;
+        max-width: 620px;
+        margin-bottom: 30px;
+      }
+
+      .hero-actions {
+        display: flex;
+        gap: 16px;
+        flex-wrap: wrap;
+      }
+
+      .hero-stats {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(120px, 1fr));
+        gap: 18px;
+        margin-top: 32px;
+      }
+
+      .stat-box {
+        padding: 18px 16px;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid var(--border);
+        border-radius: 18px;
+      }
+
+      .stat-box strong {
+        display: block;
+        font-size: clamp(1.5rem, 2vw, 2rem);
+        line-height: 1;
+      }
+
+      .stat-box span {
+        color: var(--muted);
+        font-size: 0.88rem;
+      }
+
+      .hero-card {
+        background: rgba(10, 14, 24, 0.72);
+        border: 1px solid var(--border);
+        border-radius: 26px;
+        backdrop-filter: blur(12px);
+        box-shadow: var(--shadow);
+        padding: 18px;
+      }
+
+      .mini-panel {
+        background: linear-gradient(135deg, rgba(255, 123, 44, 0.12), rgba(45, 212, 191, 0.08));
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 22px;
+        padding: 22px;
+      }
+
+      .mini-panel .tag {
+        display: inline-block;
+        color: var(--secondary);
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        font-size: 0.76rem;
+      }
+
+      .mini-panel h3 {
+        margin: 10px 0 8px;
+        font-size: 1.8rem;
+      }
+
+      .mini-panel p {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      .social-proof {
+        margin-top: 18px;
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 0 6px;
+      }
+
+      .social-proof .pill {
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 10px 12px;
+        text-align: center;
+        flex: 1;
+        color: var(--muted);
+        font-weight: 600;
+      }
+
+      section {
+        padding: 88px 0;
+      }
+
+      .section-head {
+        margin-bottom: 26px;
+      }
+
+      .section-head small {
+        color: var(--secondary);
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        font-size: 0.76rem;
+        font-weight: 700;
+      }
+
+      .section-head h2 {
+        margin: 10px 0 0;
+        font-size: clamp(2rem, 4vw, 3rem);
+        letter-spacing: -0.05em;
+      }
+
+      .grid-3 {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 22px;
+      }
+
+      .card {
+        background: var(--panel);
+        border: 1px solid var(--border);
+        border-radius: 24px;
+        padding: 26px 22px;
+        box-shadow: var(--shadow);
+      }
+
+      .icon {
+        width: 54px;
+        height: 54px;
+        border-radius: 16px;
+        display: grid;
+        place-items: center;
+        background: linear-gradient(135deg, rgba(255, 123, 44, 0.15), rgba(45, 212, 191, 0.15));
+        color: var(--text);
+        margin-bottom: 18px;
+        font-weight: 800;
+        font-size: 1.2rem;
+      }
+
+      .card h3 {
+        margin: 0 0 10px;
+        font-size: 1.35rem;
+      }
+
+      .card p {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      .about {
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.01), rgba(255, 255, 255, 0.015));
+      }
+
+      .about-grid {
+        display: grid;
+        grid-template-columns: 1.05fr 0.95fr;
+        gap: 26px;
+        align-items: center;
+      }
+
+      .about-box {
+        background: var(--panel);
+        border: 1px solid var(--border);
+        border-radius: 26px;
+        padding: 32px;
+      }
+
+      .about-box p {
+        color: var(--muted);
+      }
+
+      .feature-list {
+        list-style: none;
+        padding: 0;
+        margin: 24px 0 0;
+      }
+
+      .feature-list li {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        color: var(--text);
+        margin-bottom: 12px;
+      }
+
+      .feature-list li::before {
+        content: "✓";
+        width: 24px;
+        height: 24px;
+        display: inline-grid;
+        place-items: center;
+        border-radius: 50%;
+        background: rgba(45, 212, 191, 0.12);
+        color: var(--secondary);
+        font-weight: 800;
+      }
+
+      .rules-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 22px;
+      }
+
+      .rule-item {
+        background: var(--panel);
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        padding: 22px;
+      }
+
+      .rule-item h3 {
+        margin: 0 0 12px;
+        font-size: 1.2rem;
+      }
+
+      .rule-item ul {
+        margin: 0;
+        padding-left: 20px;
+        color: var(--muted);
+      }
+
+      .rule-item li + li {
+        margin-top: 8px;
+      }
+
+      .staff-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 22px;
+      }
+
+      .staff-card {
+        background: var(--panel);
+        border: 1px solid var(--border);
+        border-radius: 22px;
+        overflow: hidden;
+      }
+
+      .staff-photo {
+        height: 240px;
+        background:
+          linear-gradient(180deg, rgba(0,0,0,0.1), rgba(0,0,0,0.5)),
+          url("https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=900&q=80") center/cover no-repeat;
+      }
+
+      .staff-info {
+        padding: 18px 18px 22px;
+      }
+
+      .staff-info h3 {
+        margin: 0 0 4px;
+        font-size: 1.22rem;
+      }
+
+      .staff-role {
+        color: var(--secondary);
+        font-weight: 700;
+        font-size: 0.82rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .cta {
+        background: linear-gradient(135deg, rgba(255, 123, 44, 0.15), rgba(45, 212, 191, 0.08));
+        border-top: 1px solid var(--border);
+        border-bottom: 1px solid var(--border);
+      }
+
+      .cta-box {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px solid var(--border);
+        border-radius: 26px;
+        padding: 28px 30px;
+      }
+
+      .cta-box h3 {
+        margin: 0 0 8px;
+        font-size: clamp(1.8rem, 3vw, 2.6rem);
+        letter-spacing: -0.06em;
+      }
+
+      .cta-box p {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      footer {
+        padding: 28px 0 42px;
+        color: var(--muted);
+      }
+
+      .footer-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+        border-top: 1px solid var(--border);
+        padding-top: 22px;
+      }
+
+      @media (max-width: 920px) {
+        .hero-inner,
+        .about-grid,
+        .grid-3,
+        .rules-grid,
+        .staff-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .nav {
+          flex-wrap: wrap;
+          padding: 18px 0;
+        }
+
+        .nav-links {
+          width: 100%;
+          justify-content: center;
+          padding-top: 10px;
+        }
+
+        .cta-box {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .footer-inner {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+      }
+
+      @media (max-width: 560px) {
+        .hero {
+          padding-top: 60px;
+        }
+
+        .nav-actions {
+          width: 100%;
+          justify-content: center;
+        }
+
+        .hero-actions,
+        .nav-actions {
+          flex-direction: column;
+          align-items: stretch;
+        }
+
+        .btn {
+          width: 100%;
+        }
+
+        .hero-stats {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="container nav">
+        <div class="brand">
+          <div class="brand-mark">E</div>
+          <span>ER:LC</span>
+        </div>
+
+        <nav class="nav-links">
+          <a href="#about">About</a>
+          <a href="#features">Features</a>
+          <a href="#rules">Rules</a>
+          <a href="#staff">Staff</a>
+          <a href="#join">Join</a>
+        </nav>
+
+        <div class="nav-actions">
+          <a href="https://discord.com/invite/yourdiscord" class="btn btn-secondary" target="_blank" rel="noreferrer">Discord</a>
+          <a href="https://your-link-here.com" class="btn btn-primary" target="_blank" rel="noreferrer">Rejoin Server</a>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="container hero-inner">
+          <div>
+            <div class="eyebrow">
+              <span class="eyebrow-dot"></span>
+              Official ER:LC Community
+            </div>
+
+            <h1>Play hard.<br />Work as one.</h1>
+
+            <p>
+              Join the ER:LC experience built around intense emergency roleplay, disciplined teamwork,
+              and a strong community that values action, realism, and fun.
+            </p>
+
+            <div class="hero-actions">
+              <a href="https://your-link-here.com" class="btn btn-primary" target="_blank" rel="noreferrer">Rejoin Server</a>
+              <a href="#about" class="btn btn-secondary">Learn More</a>
+            </div>
+
+            <div class="hero-stats">
+              <div class="stat-box">
+                <strong>150+</strong>
+                <span>Active players</span>
+              </div>
+              <div class="stat-box">
+                <strong>24/7</strong>
+                <span>Community activity</span>
+              </div>
+              <div class="stat-box">
+                <strong>12+</strong>
+                <span>Departments</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="hero-card">
+            <div class="mini-panel">
+              <span class="tag">Now Recruiting</span>
+              <h3>Built for realism.</h3>
+              <p>
+                Whether you’re a first responder, dispatcher, or patrol officer, there’s a place for
+                you here.
+              </p>
+            </div>
+
+            <div class="social-proof">
+              <div class="pill">Fast Response</div>
+              <div class="pill">Friendly Staff</div>
+              <div class="pill">Weekly Events</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="about" class="about">
+        <div class="container">
+          <div class="section-head">
+            <small>About Us</small>
+            <h2>Where teamwork meets adrenaline.</h2>
+          </div>
+
+          <div class="about-grid">
+            <div class="about-box">
+              <p>
+                ER:LC is more than just a server — it’s a community driven by high-quality roleplay,
+                strong communication, and a commitment to creating memorable experiences. From emergency
+                response operations to citywide events, every shift is designed to keep the action moving.
+              </p>
+
+              <ul class="feature-list">
+                <li>Structured departments and command channels</li>
+                <li>Realistic emergency simulation and patrol play</li>
+                <li>Consistent staff support and active community moderation</li>
+                <li>Events, training, and public response operations</li>
+              </ul>
+            </div>
+
+            <div class="about-box">
+              <p>
+                We focus on creating an environment where players can build skills, make connections,
+                and enjoy immersive roleplay without unnecessary chaos. Our goal is simple: keep the
+                experience smooth, organized, and fun for everyone.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="features">
+        <div class="container">
+          <div class="section-head">
+            <small>Why Join</small>
+            <h2>Everything your server needs.</h2>
+          </div>
+
+          <div class="grid-3">
+            <div class="card">
+              <div class="icon">01</div>
+              <h3>Advanced Roleplay</h3>
+              <p>
+                Immersive scenarios, active departments, and realistic operations designed to keep
+                players engaged from start to finish.
+              </p>
+            </div>
+
+            <div class="card">
+              <div class="icon">02</div>
+              <h3>Strong Community</h3>
+              <p>
+                A welcoming environment where players build friendships, make connections, and
+                constantly improve together.
+              </p>
+            </div>
+
+            <div class="card">
+              <div class="icon">03</div>
+              <h3>Regular Events</h3>
+              <p>
+                Weekly and monthly community events keep the server active, exciting, and full of
+                purpose-driven action.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="rules">
+        <div class="container">
+          <div class="section-head">
+            <small>Rules</small>
+            <h2>Keep it fair, respectful, and fun.</h2>
+          </div>
+
+          <div class="rules-grid">
+            <div class="rule-item">
+              <h3>General Conduct</h3>
+              <ul>
+                <li>Respect all players and staff members.</li>
+                <li>No toxic behavior, harassment, or discrimination.</li>
+                <li>Keep communication clear and professional.</li>
+              </ul>
+            </div>
+
+            <div class="rule-item">
+              <h3>Roleplay Standards</h3>
+              <ul>
+                <li>Stay in character during active roleplay sessions.</li>
+                <li>Use proper commands and department protocols.</li>
+                <li>Avoid metagaming and out-of-character disruption.</li>
+              </ul>
+            </div>
+
+            <div class="rule-item">
+              <h3>Teamwork</h3>
+              <ul>
+                <li>Follow department structure and chain of command.</li>
+                <li>Support your team during active operations.</li>
+                <li>Communicate clearly, especially in emergencies.</li>
+              </ul>
+            </div>
+
+            <div class="rule-item">
+              <h3>Server Etiquette</h3>
+              <ul>
+                <li>Use Discord and in-game channels appropriately.</li>
+                <li>Do not exploit bugs or abuse systems.</li>
+                <li>Follow staff instructions when they are given.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="staff">
+        <div class="container">
+          <div class="section-head">
+            <small>Leadership</small>
+            <h2>Meet the team behind the operations.</h2>
+          </div>
+
+          <div class="staff-grid">
+            <div class="staff-card">
+              <div class="staff-photo"></div>
+              <div class="staff-info">
+                <h3>Chief Admin</h3>
+                <div class="staff-role">Administration</div>
+              </div>
+            </div>
+
+            <div class="staff-card">
+              <div class="staff-photo" style="background:
+                linear-gradient(180deg, rgba(0,0,0,0.1), rgba(0,0,0,0.5)),
+                url('https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=900&q=80') center/cover no-repeat;"></div>
+              <div class="staff-info">
+                <h3>Operations Captain</h3>
+                <div class="staff-role">Command</div>
+              </div>
+            </div>
+
+            <div class="staff-card">
+              <div class="staff-photo" style="background:
+                linear-gradient(180deg, rgba(0,0,0,0.1), rgba(0,0,0,0.5)),
+                url('https://images.unsplash.com/photo-1504593811423-6dd665756598?auto=format&fit=crop&w=900&q=80') center/cover no-repeat;"></div>
+              <div class="staff-info">
+                <h3>Training Lead</h3>
+                <div class="staff-role">Training</div>
+              </div>
+            </div>
+
+            <div class="staff-card">
+              <div class="staff-photo" style="background:
+                linear-gradient(180deg, rgba(0,0,0,0.1), rgba(0,0,0,0.5)),
+                url('https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=900&q=80') center/cover no-repeat;"></div>
+              <div class="staff-info">
+                <h3>Dispatch Supervisor</h3>
+                <div class="staff-role">Support</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="join" class="cta">
+        <div class="container">
+          <div class="cta-box">
+            <div>
+              <h3>Ready to jump in?</h3>
+              <p>Join the ER:LC community and take your place in the action.</p>
+            </div>
+
+            <div class="hero-actions">
+              <a href="https://discord.com/invite/yourdiscord" class="btn btn-primary" target="_blank" rel="noreferrer">Join Discord</a>
+              <a href="https://your-link-here.com" class="btn btn-secondary" target="_blank" rel="noreferrer">Rejoin Server</a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="container footer-inner">
+        <div>© 2026 ER:LC Community</div>
+        <div>Roleplay. Respond. Rebuild.</div>
+      </div>
+    </footer>
+  </body>
+</html>
