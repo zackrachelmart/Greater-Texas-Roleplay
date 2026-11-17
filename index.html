@@ -17,9 +17,6 @@
         --text: #edf3ff;
         --muted: #a8b6cc;
         --blue: #8ec6ff;
-        --blue-2: #69a9ff;
-        --blue-3: #3a85ff;
-        --glow: rgba(111, 170, 255, 0.32);
         --white: #f3f5fb;
         --shadow: 0 25px 70px rgba(0, 0, 0, 0.45);
       }
@@ -268,60 +265,17 @@
         box-shadow: 0 0 60px rgba(45, 112, 255, 0.13), inset 0 0 38px rgba(255,255,255,0.02);
       }
 
-      .logo-badge::before {
-        content: "";
-        position: absolute;
-        inset: 14%;
-        border-radius: 50%;
-        border: 2px solid rgba(255,255,255,0.2);
-      }
-
-      .logo-inner {
-        position: relative;
-        width: 72%;
-        height: 72%;
-        border-radius: 50%;
-        display: grid;
-        place-items: center;
-        background: radial-gradient(circle at 50% 35%, rgba(26, 34, 46, 0.5), rgba(10,15,22,0.9));
-        border: 1px solid rgba(255,255,255,0.08);
-        overflow: hidden;
-      }
-
-      .logo-mark {
-        position: relative;
-        width: 76%;
-        height: 76%;
-        border-radius: 50%;
-        border: 10px solid rgba(255,255,255,0.9);
-        background: rgba(255,255,255,0.02);
-      }
-
-      .logo-mark::before,
-      .logo-mark::after {
-        content: "";
-        position: absolute;
-        inset: 0;
-        border-radius: 50%;
-      }
-
-      .logo-mark::before {
-        background: radial-gradient(circle at 50% 18%, rgba(255,255,255,0.65), transparent 18%),
-          linear-gradient(135deg, transparent 0 48%, rgba(255,255,255,.85) 48% 52%, transparent 52% 100%);
-        transform: rotate(-14deg);
-      }
-
-      .logo-mark::after {
-        inset: 16% 18% 18% 18%;
-        background: rgba(255,255,255,.92);
-        clip-path: polygon(48% 0%, 58% 10%, 67% 0%, 77% 6%, 78% 29%, 91% 35%, 89% 53%, 100% 65%, 89% 76%, 83% 100%, 64% 89%, 52% 100%, 39% 89%, 25% 100%, 14% 80%, 0% 62%, 11% 53%, 11% 35%, 26% 28%, 25% 8%, 35% 0%, 42% 13%);
-        filter: drop-shadow(0 0 20px rgba(255,255,255,0.18));
+      .bear-logo {
+        width: 95%;
+        height: 95%;
+        display: block;
+        filter: drop-shadow(0 0 12px rgba(255,255,255,0.12));
       }
 
       .logo-badge .tag {
         position: absolute;
-        right: 9%;
-        bottom: 8%;
+        right: 10%;
+        bottom: 9%;
         font-size: 0.7rem;
         font-weight: 800;
         letter-spacing: 0.18em;
@@ -339,27 +293,6 @@
         filter: blur(25px);
         bottom: 1%;
         right: 5%;
-      }
-
-      .hero-card {
-        position: absolute;
-        bottom: 30px;
-        right: 48px;
-        z-index: 2;
-        padding: 8px 14px;
-        border-radius: 16px;
-        background: rgba(9, 16, 26, 0.52);
-        border: 1px solid rgba(255,255,255,0.08);
-        backdrop-filter: blur(10px);
-        display: none;
-      }
-
-      .tiny-tag {
-        display: inline-block;
-        font-size: 0.72rem;
-        letter-spacing: 0.12em;
-        text-transform: uppercase;
-        color: var(--muted);
       }
 
       .section {
@@ -573,9 +506,30 @@
 
         <div class="right">
           <div class="logo-badge" aria-label="LCRPQQ badge">
-            <div class="logo-inner">
-              <div class="logo-mark"></div>
-            </div>
+            <svg class="bear-logo" viewBox="0 0 400 400" role="img" aria-label="LCRPQQ bear logo">
+              <circle cx="200" cy="200" r="185" fill="#02070d"/>
+              <circle cx="200" cy="200" r="168" fill="none" stroke="#f3f5fb" stroke-width="10"/>
+              <path d="M123 104c18-31 44-49 77-56 36-8 76-3 109 23 33 25 47 67 39 106-5 27-23 52-47 70-20 14-44 23-64 34-18 8-46 13-69 7-23-7-41-22-56-45-16-24-20-52-12-77 8-29 18-39 23-62z" fill="#f3f5fb"/>
+              <path d="M149 144c-12-35 3-68 42-78 24-6 47-5 63 12 17 18 29 48 21 76-5 17-14 30-35 38-9 4-18 6-28 8-41 7-63-14-63-56z" fill="#02070d" opacity="0.04"/>
+              <path d="M90 170c-13-12-17-29-17-43 0-51 42-91 102-90 23 1 49 11 67 36 19 27 28 60 22 93-7 36-31 61-60 75-26 12-60 16-87 4-17-7-27-20-27-39 0-13 4-25 10-36z" fill="#f3f5fb"/>
+              <path d="M201 96l37-55 52 24-8 42 22 26-44 7-28 42-20-37-54-4 24-33 19-11z" fill="#f3f5fb"/>
+              <path d="M136 176c-10-16-18-26-32-33-28-14-53-10-66 13-17 29-8 72 22 101 19 18 41 26 60 32 20 7 38 6 52-4-13-30-13-73-36-109z" fill="#f3f5fb"/>
+              <path d="M262 176c10-16 18-26 32-33 28-14 53-10 66 13 17 29 8 72-22 101-19 18-41 26-60 32-20 7-38 6-52-4 13-30 13-73 36-109z" fill="#f3f5fb"/>
+              <path d="M155 255c17-14 42-22 67-22 28 0 53 7 71 22 17 14 28 33 31 58-5 43-36 76-81 86-41 9-82-6-104-40-11-17-15-34-13-50 2-17 15-38 29-54z" fill="#f3f5fb"/>
+              <path d="M169 262c16 12 31 18 45 18 16 0 31-6 46-18l16 18c-13 42-33 62-62 68-28 7-51-7-66-36l21-32z" fill="#02070d"/>
+              <path d="M170 245h74c18 0 35 10 42 25l17 42c8 20-6 41-27 41H138c-21 0-35-21-27-41l16-42c7-15 24-25 43-25z" fill="#f3f5fb"/>
+              <path d="M177 225c17 11 29 17 44 17 18 0 30-6 45-17l-8 27c-16 16-27 22-37 22-12 0-25-7-39-21l-5-28z" fill="#02070d"/>
+              <path d="M178 260h38v12h-38zM187 280h25v11h-25zM194 298h13v9h-13z" fill="#02070d"/>
+              <path d="M160 282l-18 30-24-18 16-27 26 15zM249 282l18 30 24-18-16-27-26 15z" fill="#02070d"/>
+              <path d="M162 287l-8 42 18 14 12-45-22-11zM246 287l8 42-18 14-12-45 22-11z" fill="#02070d"/>
+              <path d="M184 334h32l-5 18h-22l-5-18z" fill="#f3f5fb"/>
+              <path d="M140 256c-11 18-25 26-38 29-16 4-21-7-11-20 10-12 24-16 49-9z" fill="#f3f5fb"/>
+              <path d="M260 256c11 18 25 26 38 29 16 4 21-7 11-20-10-12-24-16-49-9z" fill="#f3f5fb"/>
+              <circle cx="146" cy="182" r="10" fill="#02070d"/>
+              <circle cx="255" cy="182" r="10" fill="#02070d"/>
+              <path d="M60 122c15-29 45-53 80-63 6 15 8 31 4 47-11 42-30 69-59 92-27 21-43 20-52 14-7-5-8-16-1-30 7-17 15-40 28-60z" fill="#f3f5fb"/>
+              <path d="M337 123c-15-29-45-53-80-63-6 15-8 31-4 47 11 42 30 69 59 92 27 21 43 20 52 14 7-5 8-16 1-30-7-17-15-40-28-60z" fill="#f3f5fb"/>
+            </svg>
             <span class="tag">LCRPQQ</span>
           </div>
           <div class="shadow-pulse"></div>
