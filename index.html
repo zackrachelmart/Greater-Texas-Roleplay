@@ -1,120 +1,580 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="LCRPQQ / WebERLC — More than a server. Your story. Your city." />
-  <meta name="theme-color" content="#020d1d" />
-  <title>LCRPQQ | WebERLC</title>
-  <style>
-    :root{--bg:#020d1d;--white:#f3f5f8;--blue:#85bdff;--muted:#cbd6e5;--line:rgba(255,255,255,.13)}
-    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;min-height:100vh;overflow-x:hidden;background:radial-gradient(ellipse at 75% 55%,rgba(35,67,108,.28),transparent 38%),linear-gradient(180deg,#030b17,#061326);color:var(--white);font-family:Arial,Helvetica,sans-serif}
-    .page{position:relative;min-height:100vh;overflow:hidden}.page:before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle at 78% 55%,rgba(32,74,128,.15),transparent 28%),linear-gradient(90deg,rgba(2,8,17,.4),transparent 75%)}
-    .topbar{position:relative;z-index:2;display:flex;justify-content:space-between;align-items:center;padding:14px 48px}.top-left,.top-right{display:flex;align-items:center;gap:14px;font-weight:750;letter-spacing:.17em;text-transform:uppercase;font-size:clamp(.65rem,1.25vw,.9rem);color:#e8eef8}.dot{width:11px;height:11px;flex:0 0 11px;border-radius:50%;background:#a9cfff;box-shadow:0 0 16px rgba(140,193,255,.9)}.dot.white{background:#e8eef8;box-shadow:0 0 14px rgba(255,255,255,.8)}
-    .content{position:relative;z-index:1;display:grid;grid-template-columns:1.28fr .72fr;align-items:center;gap:30px;width:min(1800px,calc(100% - 96px));min-height:calc(100vh - 60px);margin:0 auto}.left{padding:22px 0 52px;position:relative}h1{margin:0;font-size:clamp(4.5rem,10.4vw,11rem);line-height:.83;letter-spacing:-.085em;font-weight:950;text-transform:uppercase;color:var(--white)}h1 span{display:block;color:var(--blue)}.subtitle{margin-top:34px;max-width:900px;color:var(--muted);font-size:clamp(1.05rem,1.8vw,1.6rem);line-height:1.55}.buttons{display:flex;gap:24px;flex-wrap:wrap;margin-top:42px}.btn{display:inline-flex;align-items:center;justify-content:space-between;gap:28px;min-width:315px;min-height:78px;padding:0 28px;border:1px solid rgba(255,255,255,.2);border-radius:16px;background:linear-gradient(120deg,#86b9ff,#9474e9);color:#091426;font-weight:900;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;box-shadow:0 14px 35px rgba(86,129,220,.2);transition:transform .18s ease,filter .18s ease}.btn:hover{transform:translateY(-3px);filter:brightness(1.08)}.btn.secondary{background:rgba(255,255,255,.025);color:#edf3ff;border-color:rgba(255,255,255,.13);box-shadow:none}.arrow{font-size:1.6rem;line-height:1}
-    .floating{position:absolute;width:8px;height:8px;background:#fff;border-radius:50%;box-shadow:0 0 15px #fff;opacity:.8}.f1{left:6%;top:10%}.f2{left:48%;top:23%}.f3{left:75%;top:15%}.f4{right:4%;top:40%}.f5{left:27%;bottom:4%}.f6{right:13%;bottom:15%}
-    .right-side{position:relative;display:grid;place-items:center;min-height:600px}.badge-outer{position:relative;width:min(39vw,540px);aspect-ratio:1;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle,rgba(25,41,62,.76),rgba(8,16,28,.76) 70%);border:1px solid rgba(255,255,255,.14);box-shadow:0 0 70px rgba(89,142,214,.12),inset 0 0 45px rgba(255,255,255,.025)}.badge-outer:before{content:"";position:absolute;inset:14%;border:1px solid rgba(255,255,255,.13);border-radius:50%;box-shadow:0 0 0 1px rgba(0,0,0,.2)}.badge-inner{width:72%;aspect-ratio:1;border-radius:50%;display:grid;place-items:center;position:relative;overflow:hidden;background:rgba(255,255,255,.96);box-shadow:inset 0 0 0 5px rgba(0,0,0,.85)}.badge-name{position:absolute;right:11%;bottom:8%;color:#e5eaf2;font-size:clamp(.65rem,1.1vw,1rem);letter-spacing:.24em;font-weight:800}.halo{position:absolute;inset:-8%;border:1px solid rgba(255,255,255,.05);border-radius:50%;pointer-events:none}
-    .bear-svg{width:100%;height:100%;display:block;background:rgba(255,255,255,0.98)}
-    footer{position:relative;z-index:1;padding:0 48px 20px;color:#8594aa;font-size:.78rem;letter-spacing:.06em}
-    @media(max-width:900px){.topbar{padding:16px 24px}.content{width:calc(100% - 48px);grid-template-columns:1fr;gap:0;min-height:auto;padding-top:35px}.right-side{grid-row:1;min-height:0;margin-bottom:32px}.badge-outer{width:min(42vw,250px)}.left{padding:0 0 60px}h1{font-size:clamp(4rem,14vw,7.3rem)}.subtitle{margin-top:24px}.buttons{margin-top:30px}.btn{min-width:0;min-height:66px;flex:1}footer{padding:0 24px 20px}}
-    @media(max-width:560px){.topbar{padding:15px 16px}.top-left,.top-right{gap:8px;letter-spacing:.1em;font-size:.58rem}.dot{width:8px;height:8px;flex-basis:8px}.content{width:calc(100% - 32px);padding-top:22px}.right-side{margin-bottom:26px}.badge-outer{width:190px}.left{padding-bottom:40px}h1{font-size:clamp(3.4rem,16vw,5.4rem)}.subtitle{font-size:1rem}.buttons{flex-direction:column;gap:13px}.btn{width:100%;min-height:62px;padding:0 20px}.floating{width:6px;height:6px}footer{padding:0 16px 16px}}
-    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.btn{transition:none}}
-  </style>
-</head>
-<body>
-  <main class="page">
-    <div class="floating f1" aria-hidden="true"></div><div class="floating f2" aria-hidden="true"></div><div class="floating f3" aria-hidden="true"></div><div class="floating f4" aria-hidden="true"></div><div class="floating f5" aria-hidden="true"></div><div class="floating f6" aria-hidden="true"></div>
-    <header class="topbar">
-      <div class="top-left"><span class="dot"></span><span>More Than A Server</span></div>
-      <div class="top-right"><span class="dot"></span><span>WebERLC</span></div>
-    </header>
-    <section class="content" aria-labelledby="hero-title">
-      <div class="left">
-        <h1 id="hero-title">Your Story.<span>Your City.</span></h1>
-        <p class="subtitle">Meet the community, find your department, and make every session count.<br />Your next shift in LCRPQQ starts here.</p>
-        <div class="buttons">
-          <a class="btn" href="https://discord.gg/PSQThAyYPN" target="_blank" rel="noopener noreferrer">Join Discord <span class="arrow" aria-hidden="true">↗</span></a>
-          <a class="btn secondary" href="https://discord.gg/PSQThAyYPN" target="_blank" rel="noopener noreferrer">Rejoin Server <span class="arrow" aria-hidden="true">↗</span></a>
-        </div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="LCRPQQ / WebERLC — more than a server. Your story. Your city." />
+    <meta name="theme-color" content="#0a0f19" />
+    <title>LCRPQQ | WebERLC</title>
+    <style>
+      :root {
+        --bg: #070d18;
+        --bg-2: #0d1729;
+        --bg-3: #0f1c30;
+        --panel: rgba(14, 21, 34, 0.78);
+        --panel-strong: rgba(19, 27, 41, 0.9);
+        --line: rgba(255, 255, 255, 0.08);
+        --text: #edf3ff;
+        --muted: #a8b6cc;
+        --blue: #8ec6ff;
+        --white: #f3f5fb;
+        --shadow: 0 25px 70px rgba(0, 0, 0, 0.45);
+      }
+
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body {
+        margin: 0;
+        font-family: Inter, "Segoe UI", Arial, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.5;
+      }
+      a { text-decoration: none; color: inherit; }
+      img { max-width: 100%; display: block; }
+
+      .container {
+        width: min(1440px, calc(100% - 48px));
+        margin: 0 auto;
+      }
+
+      .hero {
+        position: relative;
+        min-height: 100vh;
+        overflow: hidden;
+        background:
+          radial-gradient(circle at 72% 40%, rgba(24, 52, 84, 0.42), transparent 20%),
+          radial-gradient(circle at 82% 60%, rgba(72, 95, 161, 0.14), transparent 18%),
+          linear-gradient(90deg, rgba(6, 12, 22, 0.96), rgba(6, 12, 22, 0.88) 37%, rgba(7, 12, 20, 0.20) 100%),
+          linear-gradient(180deg, #07111d 0%, #0a101a 100%);
+      }
+
+      .hero::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(90deg, rgba(1,5,10,0.3), rgba(1,5,10,0.1));
+        z-index: 0;
+      }
+
+      .glow {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      .glow::before,
+      .glow::after {
+        content: "";
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(12px);
+        opacity: 0.7;
+      }
+
+      .glow::before {
+        width: 620px;
+        height: 620px;
+        right: 10%;
+        top: 10%;
+        background: radial-gradient(circle, rgba(104, 153, 255, 0.16), transparent 65%);
+      }
+
+      .glow::after {
+        width: 420px;
+        height: 420px;
+        right: 6%;
+        bottom: -10%;
+        background: radial-gradient(circle, rgba(122, 85, 255, 0.14), transparent 60%);
+      }
+
+      .stars {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        pointer-events: none;
+      }
+
+      .stars span {
+        position: absolute;
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background: rgba(255,255,255,.8);
+        box-shadow: 0 0 10px rgba(255,255,255,0.8);
+      }
+
+      .topbar {
+        position: relative;
+        z-index: 2;
+      }
+
+      .nav {
+        height: 88px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+      }
+
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        font-size: 0.85rem;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: var(--white);
+        opacity: 0.92;
+        font-weight: 700;
+      }
+
+      .brand-mark {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: var(--blue);
+        box-shadow: 0 0 18px rgba(126, 187, 255, 0.9);
+      }
+
+      .nav-right {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        color: var(--muted);
+        font-size: 0.78rem;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        font-weight: 700;
+      }
+
+      .nav-right .dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--blue);
+        display: inline-block;
+        box-shadow: 0 0 10px rgba(111, 170, 255, 0.9);
+      }
+
+      .hero-inner {
+        position: relative;
+        z-index: 2;
+        display: grid;
+        grid-template-columns: 1.2fr 0.8fr;
+        align-items: center;
+        min-height: calc(100vh - 88px);
+        gap: 26px;
+      }
+
+      .left {
+        padding: 18px 0 42px;
+      }
+
+      .title-stack {
+        margin-top: 20px;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: clamp(4.5rem, 9vw, 12rem);
+        line-height: 0.82;
+        letter-spacing: -0.085em;
+        font-weight: 900;
+        text-transform: uppercase;
+      }
+
+      h1 .white {
+        display: block;
+        color: var(--white);
+      }
+
+      h1 .blue {
+        display: block;
+        color: var(--blue);
+      }
+
+      .subtitle {
+        margin-top: 28px;
+        max-width: 840px;
+        font-size: clamp(1.07rem, 1.6vw, 1.75rem);
+        line-height: 1.7;
+        color: rgba(227, 235, 247, 0.84);
+      }
+
+      .cta-row {
+        margin-top: 36px;
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        flex-wrap: wrap;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 18px;
+        min-height: 62px;
+        padding: 0 28px;
+        border-radius: 14px;
+        border: 1px solid rgba(255,255,255,0.25);
+        background: linear-gradient(135deg, rgba(117, 181, 255, 0.9), rgba(160, 126, 255, 0.85));
+        color: #08111d;
+        font-weight: 900;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        box-shadow: 0 16px 38px rgba(107, 152, 255, 0.26);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 18px 42px rgba(107, 152, 255, 0.3);
+      }
+
+      .btn.secondary {
+        background: rgba(255,255,255,0.02);
+        color: var(--white);
+        box-shadow: none;
+        border-color: rgba(255,255,255,0.12);
+      }
+
+      .btn .arrow {
+        font-size: 1.5rem;
+        line-height: 1;
+      }
+
+      .right {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+      }
+
+      .logo-badge {
+        position: relative;
+        width: min(31vw, 380px);
+        aspect-ratio: 1;
+        display: grid;
+        place-items: center;
+        border-radius: 50%;
+        background: radial-gradient(circle at 50% 32%, rgba(32,52,80,0.75), rgba(11,18,29,0.95) 62%, rgba(4,8,15,1) 100%);
+        border: 1px solid rgba(255,255,255,0.13);
+        box-shadow: 0 0 60px rgba(45, 112, 255, 0.13), inset 0 0 38px rgba(255,255,255,0.02);
+      }
+
+      .bear-logo {
+        width: 92%;
+        height: 92%;
+        display: block;
+        object-fit: cover;
+        border-radius: 50%;
+        filter: drop-shadow(0 0 12px rgba(255,255,255,0.12));
+        background: #f2f4f7;
+      }
+
+      .logo-badge .tag {
+        position: absolute;
+        right: 10%;
+        bottom: 9%;
+        font-size: 0.7rem;
+        font-weight: 800;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--white);
+        opacity: 0.8;
+      }
+
+      .shadow-pulse {
+        position: absolute;
+        width: 74%;
+        height: 60%;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(137, 200, 255, 0.12), transparent 70%);
+        filter: blur(25px);
+        bottom: 1%;
+        right: 5%;
+      }
+
+      .section {
+        padding: 100px 0;
+      }
+
+      .kicker {
+        font-size: 0.78rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--blue);
+        font-weight: 800;
+      }
+
+      .section h2 {
+        margin: 14px 0 18px;
+        font-size: clamp(2.4rem, 5vw, 4.5rem);
+        line-height: 0.96;
+        letter-spacing: -0.07em;
+      }
+
+      .lead {
+        max-width: 780px;
+        color: var(--muted);
+        font-size: 1.1rem;
+        line-height: 1.8;
+      }
+
+      .cards {
+        margin-top: 42px;
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 22px;
+      }
+
+      .card {
+        background: linear-gradient(180deg, rgba(18,26,40,0.94), rgba(10,15,22,0.92));
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        padding: 26px 22px;
+        box-shadow: var(--shadow);
+      }
+
+      .card-index {
+        font-size: 0.72rem;
+        font-weight: 800;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--blue);
+      }
+
+      .card h3 {
+        margin: 20px 0 12px;
+        font-size: 1.6rem;
+        letter-spacing: -0.04em;
+      }
+
+      .card p {
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.7;
+      }
+
+      .cta {
+        padding: 80px 0 116px;
+      }
+
+      .cta-box {
+        background: linear-gradient(90deg, rgba(17,28,42,0.9), rgba(14,20,32,0.9));
+        border: 1px solid var(--line);
+        border-radius: 22px;
+        padding: 34px 28px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 26px;
+        box-shadow: var(--shadow);
+      }
+
+      .cta-box h3 {
+        margin: 0 0 8px;
+        font-size: clamp(2rem, 4vw, 3rem);
+        letter-spacing: -0.06em;
+      }
+
+      .cta-box p {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      footer {
+        padding: 0 0 34px;
+        color: var(--muted);
+      }
+
+      .footer-inner {
+        border-top: 1px solid var(--line);
+        padding-top: 20px;
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        flex-wrap: wrap;
+      }
+
+      @media (max-width: 980px) {
+        .hero-inner {
+          grid-template-columns: 1fr;
+          padding-top: 10px;
+        }
+
+        .right {
+          order: -1;
+          padding-top: 28px;
+        }
+
+        .logo-badge {
+          width: min(52vw, 300px);
+        }
+
+        .cards {
+          grid-template-columns: 1fr;
+        }
+
+        .cta-box {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+      }
+
+      @media (max-width: 680px) {
+        .container { width: min(100% - 26px, 1440px); }
+        .nav { height: 70px; }
+        .nav-right {
+          gap: 10px;
+          font-size: 0.6rem;
+          letter-spacing: 0.12em;
+        }
+
+        .subtitle {
+          max-width: 620px;
+        }
+
+        .cta-row {
+          align-items: stretch;
+          flex-direction: column;
+          width: 100%;
+        }
+
+        .btn {
+          width: 100%;
+          justify-content: center;
+        }
+
+        .logo-badge {
+          width: min(62vw, 270px);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="hero">
+      <div class="glow"></div>
+      <div class="stars" aria-hidden="true">
+        <span style="left: 5%; top: 12%;"></span>
+        <span style="left: 16%; top: 55%;"></span>
+        <span style="left: 28%; top: 20%;"></span>
+        <span style="left: 42%; top: 41%;"></span>
+        <span style="left: 63%; top: 15%;"></span>
+        <span style="left: 74%; top: 52%;"></span>
+        <span style="left: 88%; top: 22%;"></span>
+        <span style="left: 92%; top: 64%;"></span>
       </div>
-      <div class="right-side" aria-label="LCRPQQ emblem">
-        <div class="badge-outer">
-          <div class="halo"></div>
-          <div class="badge-inner">
-            <svg class="bear-svg" viewBox="0 0 500 500" aria-label="LCRPQQ bear logo" role="img">
-              <circle cx="250" cy="250" r="245" fill="#0a1018"/>
-              <circle cx="250" cy="250" r="228" fill="#f5f5f5"/>
 
-              <path d="M121 166c19-38 41-73 79-100 59-40 160-36 212 16 46 45 60 116 33 174-29 62-92 99-162 109-72 10-160-11-197-77-25-43-27-92-2-122h37z" fill="#f5f5f5"/>
-
-              <path d="M170 200c-18-42-8-93 26-120 42-33 102-38 155-17 34 14 59 40 70 74 14 43 5 92-27 125-37 37-100 58-154 49-46-8-76-38-70-111z" fill="#0a1018" opacity="0.12"/>
-
-              <path d="M142 157c31-73 59-95 113-104 68-11 122 10 155 58 34 50 36 108 11 162-12 25-34 45-55 60l-64 44-62 9-64-26c-46-19-85-59-95-101-10-42 4-97 61-102z" fill="#f4f5f5"/>
-
-              <path d="M108 202c0 0 20-33 41-42 22-10 45-11 63 14 16 22 16 46 19 67 3 18-2 46-18 60-14 13-35 18-59 15-25-4-41-24-47-49-7-26 1-54 1-65z" fill="#f4f5f5"/>
-
-              <path d="M304 189c9-29 35-50 57-64 32-20 76-24 100 7 12 16 16 33 17 52 3 57-43 93-82 112-13 6-31 12-50 10-23-2-57-15-73-42-17-31-3-59 31-75z" fill="#f4f5f5"/>
-
-              <path d="M190 232c32-16 74-16 104-4 31 13 52 42 55 75-7 58-50 101-104 112-60 12-110-19-126-75-11-39 18-79 71-108z" fill="#f4f5f5"/>
-
-              <path d="M226 198c0 0 15-34 48-52 34-17 95-17 139 14 11 8 23 21 28 33 4 10 4 23-3 48-7 25-16 37-16 37s-39-15-76-16c-49-2-90 11-119 16l-1-80z" fill="#f4f5f5"/>
-
-              <path d="M161 255c21-17 43-26 63-30 38-7 78 6 105 32 19 19 29 47 26 69-17 26-34 39-58 47-32 10-66 8-96-13-27-19-40-60-40-105z" fill="#0a1018" opacity="0.82"/>
-
-              <path d="M130 265c14-55 51-93 102-115 28-13 57-18 101-10-27 38-58 73-94 98-26 18-61 29-109 27z" fill="#0a1018" opacity="0.18"/>
-
-              <path d="M190 227c19 14 42 20 63 16 27-6 54-25 71-44-3 36-31 69-66 83-23 9-62 12-92-1 7-18 15-35 24-54z" fill="#f5f5f5"/>
-
-              <path d="M167 245c21-13 46-17 67-8 17 7 32 19 52 15 20-4 36-19 48-35-12 39-40 67-77 82-43 18-90 17-111-7 8-20 12-30 21-47z" fill="#0a1018" opacity="0.84"/>
-
-              <path d="M206 287c44 0 91-10 128-23-2 20-13 42-23 53-22 23-50 32-82 30-26-2-49-13-67-32-9-10-14-23-14-39 30 10 36 8 58 11z" fill="#0a1018"/>
-
-              <path d="M214 178c0 0 6-37 28-59 21-20 39-31 61-32 22-2 44 10 59 25 20 20 27 46 27 72-19-18-32-28-65-31-27-2-61 8-110 25z" fill="#f5f5f5"/>
-
-              <path d="M226 306c18 14 32 22 48 22 25 0 46-18 63-55 9-20 18-31 34-37-9 42-40 76-80 88-34 10-71 2-89-26 9 3 15 5 24 8z" fill="#0a1018"/>
-
-              <path d="M174 319l-21 26-19-14 17-31 23 19z" fill="#0a1018"/>
-              <path d="M316 317l22 30 18-14-15-30-25 14z" fill="#0a1018"/>
-
-              <circle cx="222" cy="232" r="11" fill="#0a1018"/>
-              <circle cx="300" cy="232" r="11" fill="#0a1018"/>
-
-              <path d="M179 374c8 18 25 28 41 30 28 4 50-6 65-29-7 37-32 62-69 70-30 7-69-12-76-46 16-12 22-16 39-25z" fill="#0a1018"/>
-
-              <path d="M175 310c0 0-15 30-13 52 2 26 18 36 38 44-31-14-48-32-56-58-8-23-7-39-6-51 13-1 25 3 37 13z" fill="#f5f5f5"/>
-              <path d="M331 309c3 23 1 52-17 82-15 25-42 41-72 36 18-16 30-34 35-61 6-34 18-50 54-57z" fill="#f5f5f5"/>
-
-              <path d="M174 309l-5 58 28 18 18-62-41-14z" fill="#0a1018"/>
-              <path d="M320 308l8 54-28 18-18-62 38-10z" fill="#0a1018"/>
-
-              <path d="M234 404c0 0 27 17 59 12 16-3 30-12 43-25 4 9 7 20 7 32 0 26-34 50-79 50-48 0-80-19-88-48 18-13 33-18 58-21z" fill="#f5f5f5"/>
-
-              <path d="M206 371l-19 50 18 18 38-48-37-20z" fill="#0a1018"/>
-              <path d="M297 371l23 50-15 17-40-47 32-20z" fill="#0a1018"/>
-
-              <path d="M216 341l56 0c14 0 24-9 26-22l8-45-40 12-52 1-17 41c-6 16 3 33 19 33z" fill="#f5f5f5"/>
-
-              <path d="M204 165c9-25 58-72 145-72 64 0 105 26 117 48 11 20 2 44-23 66-27 24-74 39-131 31-20-3-41-12-60-32-23-23-36-32-48-41z" fill="#f5f5f5"/>
-              <path d="M183 177c27-25 45-40 75-50 42-14 83-8 125 8 15 6 28 19 35 34-16 3-38 8-63 10-44 5-90 6-132-2-17-4-33-15-40-20z" fill="#0a1018" opacity="0.12"/>
-
-              <path d="M150 121c17-26 50-44 75-52-12 31-7 52 24 68-19 8-39 10-54 9-26-2-37-10-45-25z" fill="#f5f5f5"/>
-              <path d="M360 117c20-12 48-14 67-3-10 26-30 39-51 51-16 9-24 7-31 2 5-15 7-25 15-50z" fill="#f5f5f5"/>
-
-              <path d="M148 301c-14 26-25 50-33 77-10 33-4 60 16 79 31 29 76 32 110 13-8-14-14-33-12-57 2-22 10-38 24-57-28-17-66-28-105-55z" fill="#f5f5f5"/>
-              <path d="M358 297c23 15 41 28 59 54 16 23 20 47 14 72-10 37-47 65-84 60-32-4-52-15-75-41 18-18 32-44 39-69 7-23 23-27 47-26z" fill="#f5f5f5"/>
-
-              <path d="M177 311l-33 18 10 22 28-16 7-24z" fill="#0a1018"/>
-              <path d="M332 311l30 16-6 21-32-17-6-20z" fill="#0a1018"/>
-
-              <path d="M94 432c34-32 37-42 57-61 20-18 65-29 104-34-18 28-42 54-77 75-28 17-60 29-84 20z" fill="#f5f5f5"/>
-              <path d="M404 432c-26-24-36-38-57-61-18-19-61-29-101-34 18 28 42 54 78 75 29 17 61 29 80 20z" fill="#f5f5f5"/>
-            </svg>
+      <div class="topbar container">
+        <div class="nav">
+          <div class="brand">
+            <span class="brand-mark"></span>
+            <span>More Than A Server</span>
           </div>
-          <div class="badge-name">LCRPQQ</div>
+
+          <div class="nav-right">
+            <span class="dot"></span>
+            <span>WebERLC</span>
+          </div>
         </div>
       </div>
-    </section>
-    <footer>© 2026 LCRPQQ / WebERLC</footer>
-  </main>
-</body>
+
+      <div class="container hero-inner">
+        <div class="left">
+          <div class="title-stack">
+            <h1>
+              <span class="white">Your story.</span>
+              <span class="blue">Your city.</span>
+            </h1>
+          </div>
+
+          <p class="subtitle">
+            Meet the community, find your department, and make every session count.
+            Your next shift in LCRPQQ starts here.
+          </p>
+
+          <div class="cta-row">
+            <a class="btn" href="https://discord.gg/PSQThAyYPN" target="_blank" rel="noreferrer">
+              Join Discord <span class="arrow">↗</span>
+            </a>
+            <a class="btn secondary" href="https://discord.gg/PSQThAyYPN" target="_blank" rel="noreferrer">
+              Rejoin Server <span class="arrow">↗</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="right">
+          <div class="logo-badge" aria-label="LCRPQQ badge">
+            <img
+              class="bear-logo"
+              src="https://cdn.discordapp.com/icons/1546338386472865813/0f14544c99baab9a157b5a9553d0465c.webp?size=2048"
+              alt="LCRPQQ badge"
+            />
+            <span class="tag">LCRPQQ</span>
+          </div>
+          <div class="shadow-pulse"></div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="section">
+        <div class="container">
+          <div class="kicker">Find your place</div>
+          <h2>One county. Many ways to serve.</h2>
+          <p class="lead">
+            Whether you’re patrolling the roads, defending the city, or building a life in the community,
+            LCRPQQ gives you a place to stand, grow, and make every roleplay session matter.
+          </p>
+
+          <div class="cards">
+            <article class="card">
+              <div class="card-index">01 / Public Safety</div>
+              <h3>Law Enforcement</h3>
+              <p>Protect the county, respond to calls, and work as a team under pressure.</p>
+            </article>
+
+            <article class="card">
+              <div class="card-index">02 / Emergency</div>
+              <h3>Fire &amp; Rescue</h3>
+              <p>Answer the call, support your crew, and respond when the community needs you most.</p>
+            </article>
+
+            <article class="card">
+              <div class="card-index">03 / Community</div>
+              <h3>Citizen Roleplay</h3>
+              <p>Build your life in the city and create your own story alongside the rest of the county.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="cta">
+        <div class="container">
+          <div class="cta-box">
+            <div>
+              <div class="kicker">Your next session awaits</div>
+              <h3>Ready to join the county?</h3>
+              <p>Meet the community and start building your story in LCRPQQ.</p>
+            </div>
+
+            <a class="btn" href="https://discord.gg/PSQThAyYPN" target="_blank" rel="noreferrer">
+              Join Our Discord <span class="arrow">↗</span>
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="container footer-inner">
+        <span>© 2026 LCRPQQ / WebERLC</span>
+        <span>Roleplay. Respond. Rebuild.</span>
+      </div>
+    </footer>
+  </body>
 </html>
