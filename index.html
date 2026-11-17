@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="LCRPQQ / WebERLC — more than a server. Your story. Your city." />
+    <meta name="theme-color" content="#0a0f19" />
+    <title>LCRPQQ | WebERLC</title>
+    <style>
+      :root {
+        --bg: #070d18;
+        --bg-2: #0d1729;
+        --bg-3: #0f1c30;
+        --panel: rgba(14, 21, 34, 0.78);
+        --panel-strong: rgba(19, 27, 41, 0.9);
+        --line: rgba(255, 255, 255, 0.08);
+        --text: #edf3ff;
+        --muted: #a8b6cc;
+        --blue: #8ec6ff;
+        --blue-2: #69a9ff;
+        --blue-3: #3a85ff;
+        --glow: rgba(111, 170, 255, 0.32);
+        --white: #f3f5fb;
+        --shadow: 0 25px 70px rgba(0, 0, 0, 0.45);
+      }
+
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body {
+        margin: 0;
+        font-family: Inter, "Segoe UI", Arial, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.5;
+      }
+      a { text-decoration: none; color: inherit; }
+      img { max-width: 100%; display: block; }
+
+      .container {
+        width: min(1440px, calc(100% - 48px));
+        margin: 0 auto;
+      }
+
+      .hero {
+        position: relative;
+        min-height: 100vh;
+        overflow: hidden;
+        background:
+          radial-gradient(circle at 72% 40%, rgba(24, 52, 84, 0.42), transparent 20%),
+          radial-gradient(circle at 82% 60%, rgba(72, 95, 161, 0.14), transparent 18%),
+          linear-gradient(90deg, rgba(6, 12, 22, 0.96), rgba(6, 12, 22, 0.88) 37%, rgba(7, 12, 20, 0.20) 100%),
+          linear-gradient(180deg, #07111d 0%, #0a101a 100%);
+      }
+
+      .hero::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(90deg, rgba(1,5,10,0.3), rgba(1,5,10,0.1));
+        z-index: 0;
+      }
+
+      .glow {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      .glow::before,
+      .glow::after {
+        content: "";
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(12px);
+        opacity: 0.7;
+      }
+
+      .glow::before {
+        width: 620px;
+        height: 620px;
+        right: 10%;
+        top: 10%;
+        background: radial-gradient(circle, rgba(104, 153, 255, 0.16), transparent 65%);
+      }
+
+      .glow::after {
+        width: 420px;
+        height: 420px;
+        right: 6%;
+        bottom: -10%;
+        background: radial-gradient(circle, rgba(122, 85, 255, 0.14), transparent 60%);
+      }
+
+      .stars {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        pointer-events: none;
+      }
+
+      .stars span {
+        position: absolute;
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background: rgba(255,255,255,.8);
+        box-shadow: 0 0 10px rgba(255,255,255,0.8);
+      }
+
+      .topbar {
+        position: relative;
+        z-index: 2;
+      }
+
+      .nav {
+        height: 88px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+      }
+
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        font-size: 0.85rem;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: var(--white);
+        opacity: 0.92;
+        font-weight: 700;
+      }
+
+      .brand-mark {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: var(--blue);
+        box-shadow: 0 0 18px rgba(126, 187, 255, 0.9);
+      }
+
+      .nav-right {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        color: var(--muted);
+        font-size: 0.78rem;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        font-weight: 700;
+      }
+
+      .nav-right .dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--blue);
+        display: inline-block;
+        box-shadow: 0 0 10px rgba(111, 170, 255, 0.9);
+      }
+
+      .hero-inner {
+        position: relative;
+        z-index: 2;
+        display: grid;
+        grid-template-columns: 1.2fr 0.8fr;
+        align-items: center;
+        min-height: calc(100vh - 88px);
+        gap: 26px;
+      }
+
+      .left {
+        padding: 18px 0 42px;
+      }
+
+      .title-stack {
+        margin-top: 20px;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: clamp(4.5rem, 9vw, 12rem);
+        line-height: 0.82;
+        letter-spacing: -0.085em;
+        font-weight: 900;
+        text-transform: uppercase;
+      }
+
+      h1 .white {
+        display: block;
+        color: var(--white);
+      }
+
+      h1 .blue {
+        display: block;
+        color: var(--blue);
+      }
+
+      .subtitle {
+        margin-top: 28px;
+        max-width: 840px;
+        font-size: clamp(1.07rem, 1.6vw, 1.75rem);
+        line-height: 1.7;
+        color: rgba(227, 235, 247, 0.84);
+      }
+
+      .cta-row {
+        margin-top: 36px;
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        flex-wrap: wrap;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 18px;
+        min-height: 62px;
+        padding: 0 28px;
+        border-radius: 14px;
+        border: 1px solid rgba(255,255,255,0.25);
+        background: linear-gradient(135deg, rgba(117, 181, 255, 0.9), rgba(160, 126, 255, 0.85));
+        color: #08111d;
+        font-weight: 900;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        box-shadow: 0 16px 38px rgba(107, 152, 255, 0.26);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 18px 42px rgba(107, 152, 255, 0.3);
+      }
+
+      .btn.secondary {
+        background: rgba(255,255,255,0.02);
+        color: var(--white);
+        box-shadow: none;
+        border-color: rgba(255,255,255,0.12);
+      }
+
+      .btn .arrow {
+        font-size: 1.5rem;
+        line-height: 1;
+      }
+
+      .right {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+      }
+
+      .logo-badge {
+        position: relative;
+        width: min(31vw, 380px);
+        aspect-ratio: 1;
+        display: grid;
+        place-items: center;
+        border-radius: 50%;
+        background: radial-gradient(circle at 50% 32%, rgba(32,52,80,0.75), rgba(11,18,29,0.95) 62%, rgba(4,8,15,1) 100%);
+        border: 1px solid rgba(255,255,255,0.13);
+        box-shadow: 0 0 60px rgba(45, 112, 255, 0.13), inset 0 0 38px rgba(255,255,255,0.02);
+      }
+
+      .logo-badge::before {
+        content: "";
+        position: absolute;
+        inset: 14%;
+        border-radius: 50%;
+        border: 2px solid rgba(255,255,255,0.2);
+      }
+
+      .logo-inner {
+        position: relative;
+        width: 72%;
+        height: 72%;
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        background: radial-gradient(circle at 50% 35%, rgba(26, 34, 46, 0.5), rgba(10,15,22,0.9));
+        border: 1px solid rgba(255,255,255,0.08);
+        overflow: hidden;
+      }
+
+      .logo-mark {
+        position: relative;
+        width: 76%;
+        height: 76%;
+        border-radius: 50%;
+        border: 10px solid rgba(255,255,255,0.9);
+        background: rgba(255,255,255,0.02);
+      }
+
+      .logo-mark::before,
+      .logo-mark::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: 50%;
+      }
+
+      .logo-mark::before {
+        background: radial-gradient(circle at 50% 18%, rgba(255,255,255,0.65), transparent 18%),
+          linear-gradient(135deg, transparent 0 48%, rgba(255,255,255,.85) 48% 52%, transparent 52% 100%);
+        transform: rotate(-14deg);
+      }
+
+      .logo-mark::after {
+        inset: 16% 18% 18% 18%;
+        background: rgba(255,255,255,.92);
+        clip-path: polygon(48% 0%, 58% 10%, 67% 0%, 77% 6%, 78% 29%, 91% 35%, 89% 53%, 100% 65%, 89% 76%, 83% 100%, 64% 89%, 52% 100%, 39% 89%, 25% 100%, 14% 80%, 0% 62%, 11% 53%, 11% 35%, 26% 28%, 25% 8%, 35% 0%, 42% 13%);
+        filter: drop-shadow(0 0 20px rgba(255,255,255,0.18));
+      }
+
+      .logo-badge .tag {
+        position: absolute;
+        right: 9%;
+        bottom: 8%;
+        font-size: 0.7rem;
+        font-weight: 800;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--white);
+        opacity: 0.8;
+      }
+
+      .shadow-pulse {
+        position: absolute;
+        width: 74%;
+        height: 60%;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(137, 200, 255, 0.12), transparent 70%);
+        filter: blur(25px);
+        bottom: 1%;
+        right: 5%;
+      }
+
+      .hero-card {
+        position: absolute;
+        bottom: 30px;
+        right: 48px;
+        z-index: 2;
+        padding: 8px 14px;
+        border-radius: 16px;
+        background: rgba(9, 16, 26, 0.52);
+        border: 1px solid rgba(255,255,255,0.08);
+        backdrop-filter: blur(10px);
+        display: none;
+      }
+
+      .tiny-tag {
+        display: inline-block;
+        font-size: 0.72rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+
+      .section {
+        padding: 100px 0;
+      }
+
+      .kicker {
+        font-size: 0.78rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--blue);
+        font-weight: 800;
+      }
+
+      .section h2 {
+        margin: 14px 0 18px;
+        font-size: clamp(2.4rem, 5vw, 4.5rem);
+        line-height: 0.96;
+        letter-spacing: -0.07em;
+      }
+
+      .lead {
+        max-width: 780px;
+        color: var(--muted);
+        font-size: 1.1rem;
+        line-height: 1.8;
+      }
+
+      .cards {
+        margin-top: 42px;
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 22px;
+      }
+
+      .card {
+        background: linear-gradient(180deg, rgba(18,26,40,0.94), rgba(10,15,22,0.92));
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        padding: 26px 22px;
+        box-shadow: var(--shadow);
+      }
+
+      .card-index {
+        font-size: 0.72rem;
+        font-weight: 800;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--blue);
+      }
+
+      .card h3 {
+        margin: 20px 0 12px;
+        font-size: 1.6rem;
+        letter-spacing: -0.04em;
+      }
+
+      .card p {
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.7;
+      }
+
+      .cta {
+        padding: 80px 0 116px;
+      }
+
+      .cta-box {
+        background: linear-gradient(90deg, rgba(17,28,42,0.9), rgba(14,20,32,0.9));
+        border: 1px solid var(--line);
+        border-radius: 22px;
+        padding: 34px 28px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 26px;
+        box-shadow: var(--shadow);
+      }
+
+      .cta-box h3 {
+        margin: 0 0 8px;
+        font-size: clamp(2rem, 4vw, 3rem);
+        letter-spacing: -0.06em;
+      }
+
+      .cta-box p {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      footer {
+        padding: 0 0 34px;
+        color: var(--muted);
+      }
+
+      .footer-inner {
+        border-top: 1px solid var(--line);
+        padding-top: 20px;
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        flex-wrap: wrap;
+      }
+
+      @media (max-width: 980px) {
+        .hero-inner {
+          grid-template-columns: 1fr;
+          padding-top: 10px;
+        }
+
+        .right {
+          order: -1;
+          padding-top: 28px;
+        }
+
+        .logo-badge {
+          width: min(52vw, 300px);
+        }
+
+        .cards {
+          grid-template-columns: 1fr;
+        }
+
+        .cta-box {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+      }
+
+      @media (max-width: 680px) {
+        .container { width: min(100% - 26px, 1440px); }
+        .nav { height: 70px; }
+        .nav-right {
+          gap: 10px;
+          font-size: 0.6rem;
+          letter-spacing: 0.12em;
+        }
+
+        .subtitle {
+          max-width: 620px;
+        }
+
+        .cta-row {
+          align-items: stretch;
+          flex-direction: column;
+          width: 100%;
+        }
+
+        .btn {
+          width: 100%;
+          justify-content: center;
+        }
+
+        .logo-badge {
+          width: min(62vw, 270px);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="hero">
+      <div class="glow"></div>
+      <div class="stars" aria-hidden="true">
+        <span style="left: 5%; top: 12%;"></span>
+        <span style="left: 16%; top: 55%;"></span>
+        <span style="left: 28%; top: 20%;"></span>
+        <span style="left: 42%; top: 41%;"></span>
+        <span style="left: 63%; top: 15%;"></span>
+        <span style="left: 74%; top: 52%;"></span>
+        <span style="left: 88%; top: 22%;"></span>
+        <span style="left: 92%; top: 64%;"></span>
+      </div>
+
+      <div class="topbar container">
+        <div class="nav">
+          <div class="brand">
+            <span class="brand-mark"></span>
+            <span>More Than A Server</span>
+          </div>
+
+          <div class="nav-right">
+            <span class="dot"></span>
+            <span>WebERLC</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="container hero-inner">
+        <div class="left">
+          <div class="title-stack">
+            <h1>
+              <span class="white">Your story.</span>
+              <span class="blue">Your city.</span>
+            </h1>
+          </div>
+
+          <p class="subtitle">
+            Meet the community, find your department, and make every session count.
+            Your next shift in LCRPQQ starts here.
+          </p>
+
+          <div class="cta-row">
+            <a class="btn" href="https://discord.gg/PSQThAyYPN" target="_blank" rel="noreferrer">
+              Join Discord <span class="arrow">↗</span>
+            </a>
+            <a class="btn secondary" href="https://discord.gg/PSQThAyYPN" target="_blank" rel="noreferrer">
+              Rejoin Server <span class="arrow">↗</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="right">
+          <div class="logo-badge" aria-label="LCRPQQ badge">
+            <div class="logo-inner">
+              <div class="logo-mark"></div>
+            </div>
+            <span class="tag">LCRPQQ</span>
+          </div>
+          <div class="shadow-pulse"></div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="section">
+        <div class="container">
+          <div class="kicker">Find your place</div>
+          <h2>One county. Many ways to serve.</h2>
+          <p class="lead">
+            Whether you’re patrolling the roads, defending the city, or building a life in the community,
+            LCRPQQ gives you a place to stand, grow, and make every roleplay session matter.
+          </p>
+
+          <div class="cards">
+            <article class="card">
+              <div class="card-index">01 / Public Safety</div>
+              <h3>Law Enforcement</h3>
+              <p>Protect the county, respond to calls, and work as a team under pressure.</p>
+            </article>
+
+            <article class="card">
+              <div class="card-index">02 / Emergency</div>
+              <h3>Fire &amp; Rescue</h3>
+              <p>Answer the call, support your crew, and respond when the community needs you most.</p>
+            </article>
+
+            <article class="card">
+              <div class="card-index">03 / Community</div>
+              <h3>Citizen Roleplay</h3>
+              <p>Build your life in the city and create your own story alongside the rest of the county.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="cta">
+        <div class="container">
+          <div class="cta-box">
+            <div>
+              <div class="kicker">Your next session awaits</div>
+              <h3>Ready to join the county?</h3>
+              <p>Meet the community and start building your story in LCRPQQ.</p>
+            </div>
+
+            <a class="btn" href="https://discord.gg/PSQThAyYPN" target="_blank" rel="noreferrer">
+              Join Our Discord <span class="arrow">↗</span>
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="container footer-inner">
+        <span>© 2026 LCRPQQ / WebERLC</span>
+        <span>Roleplay. Respond. Rebuild.</span>
+      </div>
+    </footer>
+  </body>
+</html>
